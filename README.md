@@ -1,4 +1,4 @@
-# from-prompts-to-agentic-testing-workflows
+# From Prompts to Agentic Testing Workflows
 Browser-based exercise simulator for practicing structured AI-assisted testing workflows.
 
 
