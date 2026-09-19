@@ -20,7 +20,7 @@ Under the following terms:
 
 Recommended attribution:
 
-Based on "AI-assisted testing exercise simulator" by Predrag Skoković / Quality House,
+Based on "AI-assisted testing exercise simulator" by Predrag Skoković,
 licensed under Creative Commons Attribution 4.0 International (CC BY 4.0).
 
 Original project:
