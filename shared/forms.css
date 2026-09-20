@@ -1,0 +1,10 @@
+/* Optional form components for interactive exercises. */
+label{display:block;font-size:13px;font-weight:600}
+select,textarea{display:block;width:100%;border:1px solid #b8c9cf;border-radius:7px;padding:11px;margin-top:8px;background:white;color:#233d4b;font:inherit}
+textarea{resize:vertical}
+fieldset{border:0;border-top:1px solid var(--border);margin:24px 0 20px;padding:14px 0 0}
+legend{padding:0 10px 0 0;font-size:14px;font-weight:700}
+legend span{font-weight:400;font-size:11px;color:var(--muted);margin-left:5px}
+.choice{display:flex;align-items:flex-start;gap:10px;font-weight:400;margin:10px 0;cursor:pointer}
+input[type=checkbox]{accent-color:var(--teal);width:17px;height:17px;margin:2px 0 0;flex-shrink:0}
+.field-note{display:block;font-size:12px;color:var(--muted);font-weight:400;margin-top:9px}

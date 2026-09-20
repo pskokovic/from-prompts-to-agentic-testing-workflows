@@ -50,13 +50,16 @@ The intentionally unsupported 12-character password rule appears without the no-
 ## Files
 
 - `index.html` — semantic page and controls
-- `styles.css` — responsive presentation, no external dependencies
+- `styles.css` — exercise-specific responsive presentation
+- `../../shared/theme.css` — shared colors and font family
+- `../../shared/styles.css` — shared page shell, typography, cards, buttons, and navigation
+- `../../shared/forms.css` — reusable form controls
 - `app.js` — prompt assembly, scoring, simulation and UI
 - `verify.cjs` — optional deterministic model checks (`node verify.cjs`)
 
 ## Repository delivery
 
-This exercise lives at `exercises/exercise-01-prompt-lab/` within the tutorial repository. The planned root entry page will link here. Preserve this directory layout when deploying or packaging the complete tutorial, including any future `shared/` dependencies.
+This exercise lives at `exercises/exercise-01-prompt-lab/` within the tutorial repository. The root entry page links here, and All exercises returns to it. Preserve this directory layout when deploying or packaging the complete tutorial, including the required stylesheets in `shared/`.
 
 GitHub Pages is the intended hosting destination. Deployment and public access will be verified under Task 3; the repository's presence on GitHub does not imply GitHub Pages has been enabled. Keep internal links and assets document-relative, with no leading `/` or hardcoded repository prefix.
 

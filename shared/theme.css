@@ -1,0 +1,12 @@
+/* Shared theme, based on Exercise 1. */
+:root {
+  --font-sans: Inter, Segoe UI, Arial, sans-serif;
+  --teal: #006c67;
+  --muted: #526773;
+  --border: #d9e2e6;
+  --text: #1c3040;
+  --background: #f2f5f7;
+  --accent-soft: #e7f1ef;
+  --accent-hover: #00534f;
+  --focus: #bc6a0e;
+}
