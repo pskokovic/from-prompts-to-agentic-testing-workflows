@@ -31,6 +31,18 @@ exercises/
     verify.cjs
     verify-browser.cjs
     README.md
+  exercise-03-evidence-challenge/
+    index.html
+    evidence.js                    # authored sources and decision/reveal rules
+    app.js
+    styles.css
+    worksheet.html
+    requested-evidence.html
+    worked-example.html
+    build-worksheet.cjs
+    verify.cjs
+    verify-browser.cjs
+    README.md
 ```
 
 Use `shared/styles.css` for common typography, colors, spacing, controls, cards, focus states, and responsive conventions. Keep page-specific layout in each page's stylesheet. Load `shared/theme.css` first, then `shared/styles.css`, optional `shared/forms.css`, and finally the local stylesheet. Exercise pages use the `../../shared/` prefix. See [shared design guidance](shared/README.md) for usage. Use relative links so the same package can work under a repository URL path and offline.
@@ -39,11 +51,13 @@ The home page and Exercise 1 share typography, colors, cards, controls, and focu
 
 ## Current state
 
-Open the root `index.html` for the tutorial home page. It links to Exercise 1 (Prompt Lab) and Exercise 2 (Context Lab); Exercises 3–6 retain disabled buttons with no destinations. Exercise 2 includes source decisions, context preview/copy, review and revision, a printable worksheet, and a prepared example. Runtime pages work without a build step or external assets.
+Open the root `index.html` for the tutorial home page. It links to Exercise 1 (Prompt Lab), Exercise 2 (Context Lab), and Exercise 3 (Evidence Challenge); Exercises 4–6 retain disabled buttons with no destinations. Exercise 2 includes source decisions, context preview/copy, review and revision, a printable worksheet, and a prepared example. Runtime pages work without a build step or external assets.
 
-Exercise 1 remains implemented and partially verified; adding navigation and shared styles is not a new acceptance result. Exercises 3–6 and public deployment are still pending. Full browser visual verification of the home page and shared-style extraction is also pending.
+Exercise 1 remains implemented and partially verified; adding navigation and shared styles is not a new acceptance result. Exercises 4–6 and public deployment are still pending. Full browser visual verification of the home page and shared-style extraction is also pending.
 
 Exercise 2 is implemented and partially verified. See its [verification record](exercises/exercise-02-context-grounding/README.md) for actual checks and remaining participant/usability acceptance. Keep the entire repository directory structure for offline use; the worksheet and worked example also work without JavaScript.
+
+Exercise 3 is implemented and partially verified. It preserves initial and revised decisions, offers one committed evidence request, and provides script-free sources, a worksheet, request instructions, and a worked example. TIM-01 may be revealed; TRACE-01 stays pending for Exercise 6. See its [verification record](exercises/exercise-03-evidence-challenge/README.md) for checks and remaining acceptance.
 
 GitHub Pages is the intended hosting destination. Deployment and public-access/offline verification belong to Task 3; the existence of a GitHub repository does not establish a deployed tutorial.
 
