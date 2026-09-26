@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Worked review alternatives · Testing Lab</title><link rel="icon" href="../../../shared/favicon.ico"><link rel="stylesheet" href="../../../shared/theme.css"><link rel="stylesheet" href="../../../shared/styles.css"><link rel="stylesheet" href="../../../shared/forms.css"><link rel="stylesheet" href="styles.css"></head><body>
+<a class="skip-link" href="#task-title">Skip to exercise</a><header class="topbar"><a class="brand" href="../../../index.html">Testing <span>Lab</span></a><nav class="exercise-nav" aria-label="Exercise navigation"><a class="home-link" href="../../../index.html">All exercises</a><span class="badge">EXERCISE 05</span></nav></header><main>
+<section class="intro"><div class="eyebrow">AUTOMATION REVIEW / TOOLS &amp; PERMISSIONS</div><h1 id="task-title" tabindex="-1">Worked review alternatives</h1><p>A plausible patch is a proposal. What would justify executing and accepting it?</p><div class="notice"><span class="dot" aria-hidden="true"></span>Local simulation · No AI service connected · Nothing is sent or saved</div></section>
+<section class="card"><p>Read after your initial decision. These are authored proposals and authorization examples, not real validation results.</p><h2>Supported reset proposal; policy deferred</h2><pre>Synchronization · proposal lines 02–04: Retain the success/error wait and deadline measured from submission. [TIM-01 / CODE-01]
+Credential checks · proposal lines 05–06: Revise: independently authenticate each credential in a fresh unauthenticated session. [AC-04 / DATA-01]
+Password policy · proposal line 07: Defer this policy test; record a clarification request and continue supported reset checks. [Current ACs / DATA-01]
+Review rationale: TIM-01 supports retaining the bounded wait from submission. AC-04 and DATA-01 require independent fresh-session checks. No supplied source supports a length threshold.
+Validation plan (not executed):
+- Successful confirmation at 2,000 ms; valid fixtures and both credential outcomes correct. Expected: Synchronization passes within the submission deadline; the full test passes only after both credential checks. [TIM-01 / AC-04]
+- Withhold confirmation, then separately schedule it after 3,000 ms. Expected: Fail at the submission deadline in both cases; retain timing and diagnostic evidence. [TIM-01]
+- Return an explicit reset error before the deadline. Expected: Fail with the error recorded; a completed response is not automatically success. [TIM-01]
+- Show confirmation, but make new-password authentication fail in a fresh session. Expected: Fail the new-password assertion. [AC-04 / DATA-01]
+- Show confirmation and accept the new password, but also accept the old password in a separate fresh session. Expected: Fail the old-password rejection assertion. [AC-04 / DATA-01]
+Evidence to retain: Retain fixture/account and request IDs, submission and observation times from one clock, reset response/error, confirmation event, independent authentication outcomes and clean session setup, all failures, and cleanup records.
+Requested action: Apply this reviewed draft to a test-only branch in the isolated tutorial repository. No merge, CI trigger, or production access.
+Approval: The designated automation reviewer approves applying the reviewed draft to the test-only branch; no run, merge, or production access.
+Designated reviewer: Designated automation reviewer (workshop role)
+Decision: Allow this scoped simulated action
+Action rationale: The scoped patch approval covers only this reviewed draft on the test branch. Validation, merge, and production actions are not authorized by it.
+Requested disposition: Supported reset proposal ready for review; policy work deferred
+Outstanding conditions: Validate the implementation against all planned cases and verify fixture/session isolation and cleanup. Product owner must clarify password policy before a policy oracle is added.</pre><h3>Why this disposition?</h3><pre>Supported reset proposal ready for review · policy work deferred
+
+ALLOWED IN SIMULATION · Matching scoped approval and reviewed prerequisites are recorded. Nothing is applied or run; no comparison result is revealed.
+
+Synchronization · proposal lines 02–04 [TIM-01 / CODE-01]: This matches TIM-01 and handles explicit errors. It removes the one-second snapshot race without extending the contract. Implementation still needs validation for timely, late, missing, and error outcomes; the proposal is not proof of a fix.
+
+Credential checks · proposal lines 05–06 [AC-04 / DATA-01]: AC-04 requires new-password success and old-password rejection. DATA-01 requires fresh unauthenticated sessions. Check authentication results, not inherited signed-in state. This catches credential faults that a confirmation proxy misses; validate both failure directions.
+
+Password policy · proposal line 07 [Current ACs / DATA-01]: No supplied requirement defines a length threshold. Keep the policy question visible without treating it as a product failure. Supported reset work can continue; an approved policy and its validation are prerequisites for restoring this test.
+
+Successful confirmation at 2,000 ms; valid fixtures and both credential outcomes correct.: Exercises a compliant completion that the original one-second snapshot could miss. An ordinary fast success alone would not expose that difference.
+
+Withhold confirmation, then separately schedule it after 3,000 ms.: Checks that the proposed wait remains bounded and does not normalize late or missing completion. Passing timely examples alone would not test that boundary.
+
+Return an explicit reset error before the deadline.: Checks the failure branch of the proposed wait. A generic response-complete signal could otherwise be mistaken for successful reset.
+
+Show confirmation, but make new-password authentication fail in a fresh session.: Tests whether the assertion detects loss of access despite a success message. A confirmation-only oracle would miss this fault.
+
+Show confirmation and accept the new password, but also accept the old password in a separate fresh session.: Checks that the test detects the credential-protection fault even when confirmation and new-password authentication succeed.
+
+Not accepted after validation: no tests were executed. Written reasoning needs human review.</pre><h2>Stop for setup evidence and mismatched authority</h2><pre>Synchronization · proposal lines 02–04: Retain the success/error wait and deadline measured from submission. [TIM-01 / CODE-01]
+Credential checks · proposal lines 05–06: Revise: independently authenticate each credential in a fresh unauthenticated session. [AC-04 / DATA-01]
+Password policy · proposal line 07: Remove the unsupported assertion from this proposal; track policy coverage as an open question. [Current ACs / DATA-01]
+Review rationale: TIM-01 supports retaining the bounded wait from submission. AC-04 and DATA-01 require independent fresh-session checks. No supplied source supports a length threshold.
+Validation plan (not executed):
+- Successful confirmation at 2,000 ms; valid fixtures and both credential outcomes correct. Expected: Synchronization passes within the submission deadline; the full test passes only after both credential checks. [TIM-01 / AC-04]
+- Withhold confirmation, then separately schedule it after 3,000 ms. Expected: Fail at the submission deadline in both cases; retain timing and diagnostic evidence. [TIM-01]
+- Return an explicit reset error before the deadline. Expected: Fail with the error recorded; a completed response is not automatically success. [TIM-01]
+- Show confirmation, but make new-password authentication fail in a fresh session. Expected: Fail the new-password assertion. [AC-04 / DATA-01]
+- Show confirmation and accept the new password, but also accept the old password in a separate fresh session. Expected: Fail the old-password rejection assertion. [AC-04 / DATA-01]
+Evidence to retain: Retain fixture/account and request IDs, submission and observation times from one clock, reset response/error, confirmation event, independent authentication outcomes and clean session setup, all failures, and cleanup records.
+Requested action: Run the reviewed validation cases once in isolated integration with DATA-01 fixtures, retaining all outcomes and diagnostics. No production access or merge.
+Approval: The designated automation reviewer approves applying the reviewed draft to the test-only branch; no run, merge, or production access.
+Designated reviewer: Designated automation reviewer (workshop role)
+Decision: Defer pending prerequisites or approval
+Action rationale: The approval is for patch application, not a comparison. Request matching authority after prerequisites are reviewed.
+Requested disposition: Stop for missing setup evidence or clarification
+Outstanding conditions: Obtain evidence that the target harness creates fresh unauthenticated sessions as DATA-01 describes, then obtain scoped comparison approval. Policy coverage remains an open question.</pre><h3>Why this disposition?</h3><pre>Stopped for clarification · unresolved
+
+BLOCKED · No matching scoped approval. Read and propose remain allowed; this requested action has no execution authority.
+
+Synchronization · proposal lines 02–04 [TIM-01 / CODE-01]: This matches TIM-01 and handles explicit errors. It removes the one-second snapshot race without extending the contract. Implementation still needs validation for timely, late, missing, and error outcomes; the proposal is not proof of a fix.
+
+Credential checks · proposal lines 05–06 [AC-04 / DATA-01]: AC-04 requires new-password success and old-password rejection. DATA-01 requires fresh unauthenticated sessions. Check authentication results, not inherited signed-in state. This catches credential faults that a confirmation proxy misses; validate both failure directions.
+
+Password policy · proposal line 07 [Current ACs / DATA-01]: Removing an unsupported oracle avoids a false defect claim. This does not prove password-policy compliance or remove the need for a product-owner clarification. Preserve the open coverage question and continue supported reset checks.
+
+Successful confirmation at 2,000 ms; valid fixtures and both credential outcomes correct.: Exercises a compliant completion that the original one-second snapshot could miss. An ordinary fast success alone would not expose that difference.
+
+Withhold confirmation, then separately schedule it after 3,000 ms.: Checks that the proposed wait remains bounded and does not normalize late or missing completion. Passing timely examples alone would not test that boundary.
+
+Return an explicit reset error before the deadline.: Checks the failure branch of the proposed wait. A generic response-complete signal could otherwise be mistaken for successful reset.
+
+Show confirmation, but make new-password authentication fail in a fresh session.: Tests whether the assertion detects loss of access despite a success message. A confirmation-only oracle would miss this fault.
+
+Show confirmation and accept the new password, but also accept the old password in a separate fresh session.: Checks that the test detects the credential-protection fault even when confirmation and new-password authentication succeed.
+
+Not accepted after validation: no tests were executed. Written reasoning needs human review.</pre><p>The second example does not contradict DATA-01: the note describes the intended setup; the reviewer still needs evidence that the proposed implementation uses it. Blocking instead of deferring can also be defensible when the scope is unsuitable; explain why.</p><a href="index.html">Return to the exercise</a> · <a href="worksheet.html">Worksheet</a></section><footer>From Prompts to Agentic Testing Workflows <span>Review → validation → authority</span></footer></main></body></html>
