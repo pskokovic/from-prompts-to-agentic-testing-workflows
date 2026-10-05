@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Exercise Solutions</title>
+  <link rel="icon" href="../../shared/favicon.ico">
+  <link rel="stylesheet" href="../../shared/theme.css">
+  <link rel="stylesheet" href="../../shared/styles.css">
+  <link rel="stylesheet" href="../../shared/navigation.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip-link" href="#content">Skip to content</a>
+<header class="topbar page-header">
+  <div class="header-heading">
+    <a class="home-icon" href="../../index.html" aria-label="Home" title="Home"><img src="../../shared/home.svg" alt="" width="24" height="24"></a>
+    <span class="page-title">Exercise Solutions</span>
+  </div>
+  <nav class="exercise-nav" aria-label="Tutorial navigation">
+    <a class="home-link requirements-link" href="../../requirements.html">All requirements</a>
+    <a class="home-link glossary-link" href="../../glossary.html">Glossary</a>
+    <span class="badge">SEETEST 2026 / TUTORIAL<span class="header-page-label">LEARNING REFERENCE</span></span>
+  </nav>
+</header>
+<main id="content">
+  <section class="intro">
+    <div class="eyebrow">AFTER YOUR ATTEMPT / LEARNING REFERENCE</div>
+    <h1>Exercise Solutions</h1>
+    <p>Compare your reasoning with these worked answers after attempting each exercise. They explain the choices, the evidence behind them, and what remains open. Other answers can be defensible when their reasoning fits the sources.</p>
+    <p class="reference-note">All scenarios and results are fictional teaching material. The exercises use local simulations, not connected AI or real test execution. A strong prompt, an approved action, and a validated change are separate judgments.</p>
+  </section>
+  <nav class="contents card" aria-label="Solutions on this page">
+    <h2>Choose an exercise</h2>
+    <ol>
+      <li><a href="#exercise-1">Prompt Lab — make the task reviewable</a></li>
+      <li><a href="#exercise-2">Context Lab — select sources for the task</a></li>
+      <li><a href="#exercise-3">Evidence Challenge — investigate a claim</a></li>
+      <li><a href="#exercise-4">Prompt Chain Builder — review each handoff</a></li>
+      <li><a href="#exercise-5">Automation Review, Tools and Permissions — review a proposed change</a></li>
+      <li><a href="#exercise-6">Loop Workshop — investigate with controls</a></li>
+    </ol>
+  </nav>
+
+  <section class="card solution" id="exercise-1" aria-labelledby="title-1">
+    <div class="eyebrow">EXERCISE 01</div>
+    <h2 id="title-1">Prompt Lab</h2>
+    <p><strong>What you practise:</strong> turn a broad request into a specific, grounded task with a reviewable output.</p>
+    <h3>A defensible selection</h3>
+    <p>Choose a relevant role, <strong>Derive reviewable test conditions</strong>, REQ-01, the current AC-01–04 (release v1), a table of conditions and expected results, coverage and open questions, functional scope, no invented requirements, explicit assumptions/questions, and a source reference for each condition. A descriptive heading is optional.</p>
+    <p>Leave out the superseded expiry authority, gap-filling as fact, the definitive-answer instruction that hides questions, and the summary-only instruction that removes review detail. Selecting every option introduces conflicting instructions.</p>
+    <h3>Example prompt</h3>
+    <pre>Act as a software tester. Derive reviewable functional test conditions
+for password reset using REQ-01 and the current AC-01–04, release v1.
+
+Return a table with condition, expected result, and supporting source ID.
+Add a coverage summary and open questions. Do not invent requirements.
+Separate assumptions and proposals from supported expected results.
+Use the supplied source text below as the functional baseline.
+
+REQ-01: A registered user can request a password-reset link using their email address.
+AC-01: For a registered email, send a reset link.
+AC-02 · Release v1: The link expires 30 minutes after issue.
+AC-03: A successfully used link cannot be used again.
+AC-04: After a successful reset, the new password works and the old password does not.</pre>
+    <div class="table-wrap"><table>
+      <caption>Representative supported test conditions</caption>
+      <thead><tr><th scope="col">Condition</th><th scope="col">Expected result</th><th scope="col">Source</th></tr></thead>
+      <tbody>
+        <tr><td>Request reset for a registered email.</td><td>A reset link is sent.</td><td>REQ-01, AC-01</td></tr>
+        <tr><td>Attempt to use an unused link at 31 minutes.</td><td>It is rejected as expired.</td><td>AC-02 · Release v1</td></tr>
+        <tr><td>Reuse a successfully used link.</td><td>Reuse is rejected.</td><td>AC-03</td></tr>
+        <tr><td>Authenticate after successful reset.</td><td>The new password works; the old password does not.</td><td>AC-04</td></tr>
+      </tbody>
+    </table></div>
+    <h3>Why this works</h3>
+    <p>The task, evidence, scope, output, and review rules are explicit. Each expected result can be checked against its source. “Reject passwords shorter than 12 characters” has no approved source and must remain a policy question, not a test oracle.</p>
+    <p><strong>Still open:</strong> exact behaviour at precisely 30 minutes, unregistered-email behaviour, password policy, and other unspecified conditions. These examples are not a complete test suite. A maximum simulation score measures selected prompt features; it does not guarantee correctness.</p>
+    <p class="takeaway">Learning point: a better prompt makes an answer easier to review; it does not replace review.</p>
+    <p class="reference-links"><a href="../exercise-01-prompt-lab/index.html">Revisit Exercise 1</a></p>
+  </section>
+
+  <section class="card solution" id="exercise-2" aria-labelledby="title-2">
+    <div class="eyebrow">EXERCISE 02</div>
+    <h2 id="title-2">Context Lab</h2>
+    <p><strong>What you practise:</strong> decide which sources should support functional password-reset test design now.</p>
+    <div class="table-wrap"><table>
+      <caption>One defensible source package</caption>
+      <thead><tr><th scope="col">Source</th><th scope="col">Decision</th><th scope="col">Reason</th></tr></thead>
+      <tbody>
+        <tr><td>REQ-01</td><td>Include</td><td>Current requirement defining the feature and user action.</td></tr>
+        <tr><td>AC-01–04 · Release v1</td><td>Include</td><td>Current expected functional behaviour, including the 30-minute expiry.</td></tr>
+        <tr><td>AC-02 · Release v0</td><td>Exclude</td><td>The 15-minute rule was superseded. It cannot govern the current expected result.</td></tr>
+        <tr><td>TIM-01</td><td>Defer</td><td>Relevant to later integration timing and synchronization review; unnecessary for this minimal functional package.</td></tr>
+        <tr><td>CI-01</td><td>Defer</td><td>A recorded failure belongs in later investigation. An observation does not define a requirement.</td></tr>
+        <tr><td>NOISE-01</td><td>Exclude</td><td>The export-column issue concerns another feature.</td></tr>
+        <tr><td>SUGGEST-01</td><td>Exclude</td><td>The proposed 12-character minimum is unreviewed and unsupported by approved requirements.</td></tr>
+      </tbody>
+    </table></div>
+    <h3>Example answer record</h3>
+    <p><strong>Expiry conflict:</strong> “AC-02 release v1 supersedes release v0: the current expiry rule is 30 minutes, not 15.”</p>
+    <p><strong>Two short reasons:</strong> “Exclude release v0 because it is superseded.” “Defer CI-01 because it is evidence for diagnosis, not a functional oracle.”</p>
+    <p><strong>Two unresolved questions:</strong> “What should happen for an unregistered email?” “Is a token accepted or rejected at exactly 30 minutes, and how is that boundary measured?”</p>
+    <h3>Acceptable variations</h3>
+    <p>TIM-01 can be included with an explicit integration-timing purpose. Release v0 can be retained as clearly marked history. Neither choice may override the current functional baseline. Password policy, rate limits, or multiple outstanding links are also valid unresolved questions.</p>
+    <p><strong>Connection to the next exercise:</strong> CI-01 was postponed because the task was functional test design. When the task becomes failure investigation, the same source becomes relevant evidence.</p>
+    <p class="takeaway">Learning point: grounding depends on source authority, version, scope, and relevance to the current task.</p>
+    <p class="reference-links"><a href="../exercise-02-context-grounding/index.html">Revisit Exercise 2</a> · <a href="../exercise-02-context-grounding/worked-example.html">Detailed worked example</a></p>
+  </section>
+
+  <section class="card solution" id="exercise-3" aria-labelledby="title-3">
+    <div class="eyebrow">EXERCISE 03</div>
+    <h2 id="title-3">Evidence Challenge</h2>
+    <p><strong>What you practise:</strong> review the claim “The password-reset service is unstable” without turning a failed assertion into a confirmed diagnosis.</p>
+    <div class="table-wrap"><table>
+      <caption>The five supplied observation choices</caption>
+      <thead><tr><th scope="col">Choice</th><th scope="col">Select?</th><th scope="col">Explanation</th></tr></thead>
+      <tbody>
+        <tr><td>CI-01: confirmation absent at the 1,002 ms snapshot.</td><td>Yes</td><td>This is the recorded observation.</td></tr>
+        <tr><td>HIST-01 independently corroborates the same captured CI events.</td><td>No</td><td>The report derives from those events; it is another presentation of the evidence.</td></tr>
+        <tr><td>CODE-01: fixed 1,000 ms sleep followed by an immediate existence check.</td><td>Yes</td><td>The code supplies a possible mechanism for checking too early.</td></tr>
+        <tr><td>CI-01 proves that the password reset failed.</td><td>No</td><td>Absence at that moment does not establish the final reset outcome.</td></tr>
+        <tr><td>HIST-01: supplied runs fail when confirmation is later than the snapshot.</td><td>Yes</td><td>The sample shows a timing/outcome association, not the cause of timing variation.</td></tr>
+      </tbody>
+    </table></div>
+    <h3>One defensible decision record</h3>
+    <ul>
+      <li><strong>Claim decision:</strong> Investigate.</li>
+      <li><strong>Provisional category:</strong> Test synchronization.</li>
+      <li><strong>Preferred hypothesis:</strong> The test checks before a valid confirmation appears.</li>
+      <li><strong>Competing hypothesis:</strong> The reset genuinely fails or exceeds its applicable completion bound.</li>
+      <li><strong>Evidence and limit:</strong> The snapshot was empty, the check is immediate, and the history associates later confirmation with failure. This does not establish service instability.</li>
+      <li><strong>What would weaken the preferred hypothesis:</strong> A matching capture showing a reset error, confirmation before the failed snapshot, or completion beyond the accepted bound.</li>
+      <li><strong>Next action:</strong> Request TIM-01 to establish the applicable timing expectation.</li>
+    </ul>
+    <h3>Revision after TIM-01</h3>
+    <p>“Keep investigate. TIM-01 specifies successful completion and confirmation within 3,000 ms of submission. The supplied history timings fit that bound, but the raw correlated run-204 capture and cause of latency remain unresolved.” This does not establish either AC-04 authentication outcome.</p>
+    <h3>Acceptable variations</h3>
+    <p>You can reject the claim's certainty while retaining instability as a hypothesis. That is not a finding that the service is healthy. Requesting TRACE-01 to correlate run 204/request reset-204 is also defensible; in Exercise 3 it remains pending for Exercise 6. If you already read TIM-01 in Exercise 2, cite it as prior knowledge.</p>
+    <p><strong>Your decision record</strong> captures your observations, judgment, hypotheses, evidence limits, next action, and revision. It can become reviewed context for later work if copied onward with its source links and uncertainty. It is not automatically a prompt or persistent memory.</p>
+    <p class="takeaway">Learning point: distinguish what happened, what it might mean, and what evidence could change your judgment.</p>
+    <p class="reference-links"><a href="../exercise-03-evidence-challenge/index.html">Revisit Exercise 3</a> · <a href="../exercise-03-evidence-challenge/worked-example.html">Detailed worked example</a></p>
+  </section>
+
+  <section class="card solution" id="exercise-4" aria-labelledby="title-4">
+    <div class="eyebrow">EXERCISE 04</div>
+    <h2 id="title-4">Prompt Chain Builder</h2>
+    <p><strong>What you practise:</strong> build three focused prompts and review each output before it becomes the next prompt's input.</p>
+    <p class="flow">Supported behaviour and gaps → Review → Risks → Review → Test ideas and expected results</p>
+    <div class="table-wrap"><table>
+      <caption>A defensible prompt configuration and review</caption>
+      <thead><tr><th scope="col">Stage</th><th scope="col">Choose these blocks</th><th scope="col">Review before passing</th></tr></thead>
+      <tbody>
+        <tr><td>Extract</td><td>Current sources; separate supported behaviour from gaps; source-linked list; source-support review.</td><td>REQ-01 and AC-01–04 support the stated behaviours. AC-04 includes both credential outcomes. Policy and exact expiry boundary remain open.</td></tr>
+        <tr><td>Identify risks</td><td>Reviewed handoff plus current cards; plausible impacts with unknown likelihood; source-linked list; inherited-claim review.</td><td>Used-link replay relates to AC-03. Old-password acceptance or new-password failure relates to AC-04. No measured likelihood is supplied.</td></tr>
+        <tr><td>Propose tests</td><td>Reviewed handoff plus current cards; observable oracles including both AC-04 outcomes; source-linked list; oracle review.</td><td>Include independent fresh-session credential checks and used-link replay. A success confirmation alone does not establish credential protection.</td></tr>
+      </tbody>
+    </table></div>
+    <h3>Example final proposal</h3>
+    <ol>
+      <li>Use a fresh valid link, complete the reset, and inspect the observable result. [REQ-01, AC-01]</li>
+      <li>Check in fresh unauthenticated sessions: the new password authenticates and the old password is rejected. [AC-04]</li>
+      <li>Attempt to reuse the successfully used link; reuse must fail. [AC-03]</li>
+    </ol>
+    <p>The exercise limits the proposal to a small set of ideas. Expiry checks before and after 30 minutes are a valid extension; the exact boundary remains unresolved.</p>
+    <h3>What to do with a weak handoff</h3>
+    <p>If extraction invents a 12-character rule, <strong>revise and rerun</strong> or <strong>hold</strong> the handoff. AC-04 written beside that rule does not support it. A review note does not edit the response: passing sends the exact response text onward, including any flaws.</p>
+    <h3>Compare the first and revised chain</h3>
+    <p>Keep the first chain. Change the first stage, review the new output, and rerun/review the first affected downstream stage. Compare source support, missing credential outcomes, and preserved gaps. Later outputs stay <strong>Needs review</strong> until checked against the new handoff. Completing all remaining stages allows a full final-output comparison.</p>
+    <p>All six task orders are allowed. The default extraction → risks → tests order makes dependencies easiest to follow. Another order needs an explanation of what input arrived late. “First”, “revised”, “neither ready”, or “no clear advantage” can be justified by the actual outputs.</p>
+    <p class="takeaway">Learning point: the next prompt receives the output you pass, not the correction you intended.</p>
+    <p class="reference-links"><a href="../exercise-04-prompt-chain-builder/index.html">Revisit Exercise 4</a> · <a href="../exercise-04-prompt-chain-builder/worked-example.html">Detailed worked routes</a></p>
+  </section>
+
+  <section class="card solution" id="exercise-5" aria-labelledby="title-5">
+    <div class="eyebrow">EXERCISE 05</div>
+    <h2 id="title-5">Automation Review, Tools and Permissions</h2>
+    <p><strong>What you practise:</strong> separately judge a proposed test change, its validation plan, and authority for a specific action.</p>
+    <div class="table-wrap"><table>
+      <caption>Review of the proposed correction</caption>
+      <thead><tr><th scope="col">Concern</th><th scope="col">Defensible treatment</th><th scope="col">Why</th></tr></thead>
+      <tbody>
+        <tr><td>Synchronization</td><td>Retain the observable success/error wait, with a deadline measured from submission.</td><td>TIM-01 supports a bounded 3,000 ms wait. Avoid a one-second snapshot race without extending the contract.</td></tr>
+        <tr><td>Credential checks</td><td>Revise: test each password independently in a fresh unauthenticated session.</td><td>AC-04 requires both outcomes; DATA-01 avoids carried signed-in state masking the result.</td></tr>
+        <tr><td>Password policy</td><td>Remove the unsupported assertion and retain the question, or defer the policy test pending approval.</td><td>The supplied sources do not establish a 12-character minimum. Accepted fixtures are not a general policy specification.</td></tr>
+      </tbody>
+    </table></div>
+    <h3>A discriminating validation plan</h3>
+    <p>Specify a <strong>delayed valid success</strong> and <strong>two distinct fault cases</strong>. For example, select missing/late confirmation and old-password acceptance. Other pairs below are valid; unchosen cases remain outstanding.</p>
+    <div class="table-wrap"><table>
+      <caption>Expected results and evidence to retain</caption>
+      <thead><tr><th scope="col">Case</th><th scope="col">Expected test outcome</th><th scope="col">Useful observation</th></tr></thead>
+      <tbody>
+        <tr><td>Valid success delayed to 2,000 ms</td><td>Pass only when confirmation and both credential checks meet the sources.</td><td>Submission/confirmation times and separate authentication results.</td></tr>
+        <tr><td>Missing or late confirmation</td><td>Fail at the submission-based deadline.</td><td>Elapsed time, missing/late confirmation, and diagnostics.</td></tr>
+        <tr><td>Explicit reset error</td><td>Fail; a completed error response is not reset success.</td><td>Error response and timing evidence.</td></tr>
+        <tr><td>New password fails</td><td>Fail the new-password assertion.</td><td>Fresh-session authentication result for the correct fixture.</td></tr>
+        <tr><td>Old password still works</td><td>Fail the old-password assertion.</td><td>Fresh-session old-password acceptance after reset.</td></tr>
+      </tbody>
+    </table></div>
+    <h3>Authority depends on your assigned card</h3>
+    <div class="table-wrap"><table>
+      <caption>Reference authority decisions after a sound proposal review</caption>
+      <thead><tr><th scope="col">Card</th><th scope="col">Decision</th><th scope="col">Explanation</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td>Allow the named test-only patch action.</td><td>The review-ready proposal and approval scope match. This does not authorize a comparison run or production access.</td></tr>
+        <tr><td>B</td><td>Defer pending matching approval.</td><td>The request is an isolated comparison, but the approval covers only applying a patch to a test-only branch. A justified block of the current unmatched request is also defensible.</td></tr>
+        <tr><td>C</td><td>Block.</td><td>The production credential action is prohibited. “Go ahead” does not supply scoped authority.</td></tr>
+      </tbody>
+    </table></div>
+    <p><strong>Example revision:</strong> “I replaced the same-session checks with separate fresh-session checks. I retained the bounded wait and deferred the unsupported policy assertion.” Explain the source basis of whichever change you actually made.</p>
+    <p><strong>Final status:</strong> ready for expert review if the proposal is sound; validation still required. No checks execute here, so <strong>accepted after validation remains no</strong>. Actual results, fixture/session evidence, diagnostics, remaining fault cases, policy clarification, and human review are still needed.</p>
+    <p class="takeaway">Learning point: technical quality, permission, and acceptance after validation are separate judgments.</p>
+    <p class="reference-links"><a href="../exercise-05-automation-review/index.html">Revisit Exercise 5 (default card A)</a> · <a href="../exercise-05-automation-review/worked-example.html">Worked examples for cards A, B and C</a></p>
+  </section>
+
+  <section class="card solution" id="exercise-6" aria-labelledby="title-6">
+    <div class="eyebrow">EXERCISE 06</div>
+    <h2 id="title-6">Loop Workshop</h2>
+    <p><strong>What you practise:</strong> design a controlled investigation loop for runs 204, 208, and 209. New observations should affect the next action while evidence, permissions, state, and a shared budget remain explicit.</p>
+    <h3>One valid block sequence</h3>
+    <ol class="block-sequence">
+      <li>Define goal and instructions.</li>
+      <li>Select context and sources.</li>
+      <li>Initialize workflow state.</li>
+      <li>Assess observations.</li>
+      <li>Choose the next action.</li>
+      <li>Check permissions and limits.</li>
+      <li>Execute tool call.</li>
+      <li>Validate tool output.</li>
+      <li>Update workflow state.</li>
+      <li>Check stopping conditions.</li>
+      <li>Request human review.</li>
+    </ol>
+    <p>Connect <strong>continue</strong> back to <strong>Assess observations</strong>, retaining the queue, per-run evidence, gaps, and attempts consumed. The first three setup blocks may be reordered. The eleven-block decomposition and return target are this exercise's teaching model, not a universal agent architecture.</p>
+    <p>Leave out <strong>Use every successful response</strong>, <strong>Repeat until the test is green</strong>, and <strong>Apply the fix to production</strong>. Optional <strong>Add version context</strong> belongs after state update and before stopping checks. CHANGE-01 is not retrieved on these routes and covers only runs 201–205; it cannot explain the entire batch.</p>
+    <div class="table-wrap"><table>
+      <caption>One defensible configuration</caption>
+      <thead><tr><th scope="col">Control</th><th scope="col">Choice and reason</th></tr></thead>
+      <tbody>
+        <tr><td>Priority</td><td>Risk first: 208 → 209 → 204. Investigate credential protection and the deadline breach before the snapshot race.</td></tr>
+        <tr><td>Evidence admission</td><td>Validate source, run/request identity, timing basis, scope, and errors before updating that case.</td></tr>
+        <tr><td>Completion threshold</td><td>Per-run triage plus an approved run-204 comparison where matching evidence is available.</td></tr>
+        <tr><td>Invalid evidence</td><td>Escalate the affected run, preserving its gap; continue other independent cases.</td></tr>
+        <tr><td>Authority</td><td>Check scoped approval before the isolated comparison. Read access does not authorize changes or release.</td></tr>
+        <tr><td>Budget and return</td><td>Four shared execution attempts; return to assessment with updated state.</td></tr>
+        <tr><td>Human handoff</td><td>Name a reviewer and explain the priority, stopping policy, remaining uncertainty, and next owners.</td></tr>
+      </tbody>
+    </table></div>
+    <h3>Normal situation: expected report</h3>
+    <p>Three capture retrievals investigate 208, 209, and 204; the fourth attempt performs the approved simulated run-204 comparison. The ending is <strong>Recommendation ready</strong>, with the following bounded findings.</p>
+    <div class="table-wrap"><table>
+      <caption>Per-run conclusions after matching evidence</caption>
+      <thead><tr><th scope="col">Run</th><th scope="col">Supported provisional finding</th><th scope="col">Evidence, limits, and next owner</th></tr></thead>
+      <tbody>
+        <tr><td>204</td><td>Likely test synchronization issue.</td><td>TRACE-01 places the 1,002 ms snapshot before the 1,460 ms confirmation, within TIM-01. VALID-01 illustrates a discriminating comparison when approved. Automation reviewer: implement and validate bounded synchronization and AC-04 assertions. Actual patch validation and underlying latency cause remain unresolved.</td></tr>
+        <tr><td>208</td><td>Observed AC-04 violation.</td><td>TRACE-208 shows both passwords accepted in separate fresh sessions after reset. Product/security owner: investigate credential invalidation promptly. Root cause and production exposure are unknown.</td></tr>
+        <tr><td>209</td><td>Observed TIM-01 breach.</td><td>TRACE-209 shows confirmation at 3,200 ms, beyond the 3,000 ms bound. Service owner: investigate latency without extending the requirement. Credential behaviour and latency cause are unknown.</td></tr>
+      </tbody>
+    </table></div>
+    <p>These observations do not establish three distinct root causes. A comparison for run 204 cannot close 208 or 209. VALID-01 is prepared simulation evidence, not a verified real fix or a whole-service health assessment.</p>
+    <h3>Other valid routes and endings</h3>
+    <div class="table-wrap"><table>
+      <caption>How changed evidence and limits should change the outcome</caption>
+      <thead><tr><th scope="col">Situation</th><th scope="col">Defensible response</th></tr></thead>
+      <tbody>
+        <tr><td>Queue coverage; bounded triage only</td><td>204 → 208 → 209 costs three retrieval attempts. Report provisional findings and remaining validation. Explain the priority trade-off.</td></tr>
+        <tr><td>Run-204 capture missing or mismatched</td><td>Do not admit the result as run-204 evidence. Escalate 204 and retain valid findings for the other runs. Immediate escalation costs three retrievals overall.</td></tr>
+        <tr><td>One targeted request for the missing capture</td><td>A fourth attempt returns REQUEST-01, a receipt only. The diagnosis remains unresolved; stop requesting indefinitely and hand over the gap.</td></tr>
+        <tr><td>Comparison approval absent</td><td>With four attempts configured, three captures are retrieved and the comparison is blocked before execution. Escalate; the blocked proposal consumes no attempt. With a limit of three, the budget stop happens before the comparison is considered.</td></tr>
+        <tr><td>Limit of one attempt</td><td>Risk first investigates 208; queue coverage investigates 204. End at Limit reached and explicitly report the two uninvestigated cases.</td></tr>
+      </tbody>
+    </table></div>
+    <h3>Example reflection</h3>
+    <p>“I prioritize credential-protection evidence, validate each result's identity, and keep separate case state. Missing evidence changes the route to escalation rather than a guessed diagnosis. A bounded stop preserves the partial report. Model judgment may help interpret varied evidence and choose follow-ups; the harness must enforce permissions, identity checks, and execution limits.”</p>
+    <p>The simulator's authored policies do not demonstrate live AI behaviour. A justified escalation or limit stop can be a correct controlled outcome even when the investigation is incomplete.</p>
+    <p class="takeaway">Learning point: a useful loop changes its next action with the evidence and knows when to stop.</p>
+    <p class="reference-links"><a href="../exercise-06-agentic-loop-builder/index.html">Revisit Exercise 6</a> · <a href="../exercise-06-agentic-loop-builder/worksheet.html">Printable workshop and result reveals</a></p>
+  </section>
+  <section class="card recap" aria-labelledby="recap-title">
+    <h2 id="recap-title">Carry the learning into your own work</h2>
+    <p>Define the task → select its sources → review the evidence → review each handoff → challenge a proposed change → control the investigation loop.</p>
+    <p>For any answer, ask: What supports it? What remains unknown? What observation could change it? Who may authorize the next action? What must be checked before acceptance?</p>
+  </section>
+  <footer>From Prompts to Agentic Testing Workflows <span>Exercise Solutions / learning reference</span></footer>
+</main>
+</body>
+</html>

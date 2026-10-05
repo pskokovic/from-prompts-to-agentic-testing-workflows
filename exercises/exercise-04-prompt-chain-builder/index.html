@@ -1,0 +1,64 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>E4 · Prompt Chain Builder</title>
+
+  <link rel="icon" href="../../shared/favicon.ico">
+
+  <link rel="stylesheet" href="../../shared/theme.css">
+
+  <link rel="stylesheet" href="../../shared/styles.css">
+
+  <link rel="stylesheet" href="../../shared/forms.css">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <script defer src="model.js"></script>
+
+  <script defer src="app.js"></script>
+
+<link rel="stylesheet" href="../../shared/navigation.css"></head>
+
+<body>
+
+  <a class="skip-link" href="#title">Skip to exercise</a>
+
+  <header class="topbar page-header"><div class="header-heading"><a class="home-icon" href="../../index.html" aria-label="Home" title="Home"><img src="../../shared/home.svg" alt="" width="24" height="24"></a><span class="page-title">Prompt Chain Builder</span></div><nav class="exercise-nav" aria-label="Tutorial navigation"><a class="home-link requirements-link" href="../../requirements.html">All requirements</a><a class="home-link glossary-link" href="../../glossary.html">Glossary</a><div class="header-actions"><button id="reset" class="header-reset" type="button">Reset</button><span class="badge">SEETEST 2026 / TUTORIAL<span class="header-page-label">EXERCISE 04</span></span></div></nav></header>
+
+  <main>
+
+    <section class="intro"><div class="eyebrow">BUILD · RUN · REVIEW · CONTINUE</div><h1 id="title" tabindex="-1">Prompt Chain Builder</h1><p>Build each prompt, inspect one prepared response, and decide what the next prompt receives.</p><div class="notice"><span class="dot" aria-hidden="true"></span>Local simulation · No AI service connected · Nothing is sent or saved</div></section>
+
+    <section class="card"><h2>Your goal</h2><p>Prepare a small, source-backed password-reset test proposal focused on <strong>credential protection</strong>. Use the three tasks in an order you choose. For each prompt, select one block in each row, run the prepared response, and review it before continuing.</p><div class="actions goal-links"><a href="worksheet.html">Worksheet</a><a href="response-cards.html">Script-free response cards</a><a href="worked-example.html">Worked feedback</a></div></section>
+
+    <details class="card" open><summary>Starting sources — current requirements and known gaps</summary><ul><li><strong>REQ-01:</strong> A registered user can request a password-reset link using their email address.</li><li><strong>AC-01:</strong> For a registered email, send a reset link.</li><li><strong>AC-02 · Release v1:</strong> The link expires 30 minutes after issue.</li><li><strong>AC-03:</strong> A successfully used link cannot be used again.</li><li><strong>AC-04:</strong> After a successful reset, the new password works and the old password does not.</li></ul><p><strong>Known gaps:</strong> Unregistered-email behaviour; password composition/length; rate limits; the exact 30-minute boundary; multiple outstanding links; session invalidation; delivery-time guarantees.</p></details>
+
+    <noscript><p class="card">JavaScript is off. Use the <a href="worksheet.html">worksheet</a> and <a href="response-cards.html">prepared response cards</a>.</p></noscript>
+
+    <div id="activity" hidden>
+
+      <section class="card" id="map-panel"><h2>1. Map the work</h2><p>The default order is ready to use. To try another, drag a card onto another card, or use the small arrow controls. Every order can continue; look at what information each task receives.</p><ol id="task-map" class="task-map" aria-label="Task order"></ol><p id="map-feedback" class="field-note" role="status"></p><button id="confirm-map" class="primary" type="button">Use this task map →</button></section>
+
+      <section class="card" id="chain-panel" hidden><h2>2. Build the chain</h2><ol id="chain-status" class="chain-status" aria-label="Chain progress"></ol><div class="eyebrow" id="stage-count"></div><h3 id="stage-title" tabindex="-1"></h3><div class="handoff"><h4>Input received</h4><pre id="stage-input"></pre><p id="handoff-note" class="field-note"></p><details id="prior-feedback" hidden><summary>Review of the previous response</summary><ul id="prior-feedback-list"></ul></details></div><p>Choose one option for each prompt part. Your choices appear immediately in the prompt preview below.</p><div id="choices" class="prompt-choices"></div><section class="prompt-preview" aria-labelledby="prompt-preview-title"><h4 id="prompt-preview-title">Assembled prompt · live preview</h4><p id="prompt-progress" class="field-note" role="status"></p><pre id="assembled-prompt"></pre></section><div class="actions"><button id="run" class="primary" type="button">Run prepared response</button><span id="run-help" role="status"></span></div><section id="response-panel" class="response-panel" hidden><h4>Prepared response</h4><p id="response-meta" class="field-note"></p><p class="field-note">This is one authored teaching response, not a menu or a live AI result. Check the claims against the source cards, especially when IDs are absent.</p><div id="response-display" tabindex="-1"></div><details id="response-comparison" hidden><summary>Compare with previous run</summary><div id="previous-response"></div></details><fieldset><legend>Review before handoff</legend><p>What is supported, missing, or uncertain? Can the next prompt use this exact text?</p><label for="review-note">Optional review note (for your record; does not change the next response)</label><textarea id="review-note" rows="2" maxlength="500"></textarea><div class="actions"><button id="pass" class="primary" type="button">Pass this response as reviewed</button><button id="hold" class="text-button" type="button">Hold for clarification</button></div><p id="review-help" role="status"></p></fieldset><details id="feedback-details" hidden><summary>Why this run matters</summary><ul id="feedback-list"></ul></details></section><div class="next-step" id="next-step" hidden><p id="next-message" role="status" tabindex="-1"></p><button id="continue" class="primary" type="button">Continue to Stage 2 →</button></div></section>
+
+      <section class="card" id="outcome-panel" hidden><h2>3. Inspect and revise</h2><p id="outcome-status" role="status" tabindex="-1"></p><p>After your first complete chain, change an earlier choice and rerun it. Compare the first affected downstream handoff in class; complete the revised chain at home for a final-output comparison. Later stages show <strong>Needs review</strong> until revisited. A held or unfinished revised chain is valid.</p><div id="revision-actions" class="actions"></div><section id="comparison-panel" class="comparison-panel" aria-labelledby="comparison-title" hidden><h3 id="comparison-title" tabindex="-1">Compare your chains</h3><p id="comparison-status" role="status"></p><ol id="comparison-route" class="comparison-route"></ol><section id="comparison-checkpoint" hidden><h4 id="checkpoint-title">Live checkpoint · first affected handoff</h4><div class="comparison-grid"><article><h5>First chain <span id="checkpoint-first-run"></span></h5><div id="checkpoint-first"></div></article><article><h5>Revised chain <span id="checkpoint-revised-run"></span></h5><div id="checkpoint-revised"></div></article></div><p class="field-note">Compare what changed in source support, missing outcomes, and assumptions. A full revised chain still needs every later stage reviewed.</p><fieldset class="comparison-choice"><legend>Which handoff is more defensible now?</legend><label><input type="radio" name="checkpoint-judgment" value="first"> First chain</label><label><input type="radio" name="checkpoint-judgment" value="revised"> Revised chain</label><label><input type="radio" name="checkpoint-judgment" value="neither"> Neither is ready</label><label><input type="radio" name="checkpoint-judgment" value="unclear"> No clear advantage</label><p id="checkpoint-judgment-status" class="field-note" role="status"></p></fieldset></section><section id="comparison-final" hidden><h4 id="final-title">Full-chain comparison · optional take-home</h4><div class="comparison-grid"><article><h5>First chain <span id="final-first-run"></span></h5><div id="final-first"></div></article><article><h5>Revised chain <span id="final-revised-run"></span></h5><div id="final-revised"></div></article></div><p class="field-note">Which final output better supports the credential-protection goal? Name the evidence, remaining gaps, and a usable test oracle.</p><fieldset class="comparison-choice"><legend>Which final output is more defensible?</legend><label><input type="radio" name="final-judgment" value="first"> First chain</label><label><input type="radio" name="final-judgment" value="revised"> Revised chain</label><label><input type="radio" name="final-judgment" value="neither"> Neither is ready</label><label><input type="radio" name="final-judgment" value="unclear"> No clear advantage</label><p id="final-judgment-status" class="field-note" role="status"></p></fieldset></section></section><details><summary>Run history and first attempt</summary><pre id="history"></pre></details><p><a href="worked-example.html">Compare with worked routes after your attempt</a></p></section>
+
+      <section class="card"><h2>Your decision record</h2><p class="field-note">Copy it before leaving; nothing is saved. Written notes need human review.</p><div class="actions"><button id="copy" class="text-button" type="button">Copy record</button></div><p id="copy-status" role="status"></p><details><summary>View full record</summary><pre id="record" tabindex="0"></pre></details></section>
+
+    </div>
+
+    <footer>From Prompts to Agentic Testing Workflows <span>Prompt → prepared response → reviewed handoff</span></footer>
+
+  </main>
+
+</body>
+
+</html>
+

@@ -1,7 +1,7 @@
 (function () {
   'use strict';
   const requirement = 'REQ-01: A registered user can request a password-reset link using their email address.';
-  const criteria = ['AC-01: For a registered email, send a reset link.', 'AC-02: The link expires 30 minutes after issue.', 'AC-03: A successfully used link cannot be used again.', 'AC-04: After a successful reset, the new password works and the old password does not.'];
+  const criteria = ['AC-01: For a registered email, send a reset link.', 'AC-02 (release v1): The link expires 30 minutes after issue.', 'AC-03: A successfully used link cannot be used again.', 'AC-04: After a successful reset, the new password works and the old password does not.'];
   const roles = { tester: 'software tester', developer: 'software developer', analyst: 'business analyst' };
   function buildPrompt(c) {
     const parts = [];
@@ -16,7 +16,7 @@
     if (c.infer) constraints.push('Fill missing requirements using common product conventions, and treat them as expected behaviour.');
     if (c.hideGaps) constraints.push('Deliver a definitive result without assumptions, caveats or open questions.');
     if (constraints.length) parts.push('CONSTRAINTS\n' + constraints.join('\n'));
-    if (c.legacy) parts.push('ADDITIONAL CONTEXT\nUse this earlier-release note as the authority for expiry: reset links expire after 15 minutes.');
+    if (c.legacy) parts.push('ADDITIONAL CONTEXT\nUse AC-02 (release v0) as the authority for expiry: reset links expire after 15 minutes.');
     if (c.trace) parts.push('EVIDENCE / QUALITY RULE\nReference a supplied requirement or acceptance criterion for every test condition. Flag any condition with no supporting source.');
     if (c.extra) parts.push('EXTRA INSTRUCTION\n' + c.extra);
     return parts.join('\n\n');
@@ -39,7 +39,7 @@
       for (const [dimension, penalty] of Object.entries(deductions)) scores[dimension] -= penalty;
       issues.push(message);
     }
-    penalize('legacy', { Grounding: 45, 'Hallucination Resistance': 20 }, 'Earlier-release context is promoted over current AC-02. The response uses 15 minutes instead of 30; confirm source authority rather than treating older notes as current requirements.');
+    penalize('legacy', { Grounding: 45, 'Hallucination Resistance': 20 }, 'AC-02 (release v0) is promoted over the current release v1 version of the same criterion. The response uses 15 minutes instead of 30; confirm source authority rather than treating older notes as current requirements.');
     penalize('infer', { 'Hallucination Resistance': 30, Clarity: selected.noInvent ? 20 : 0 }, 'Filling gaps as facts introduces an unsupported password rule.' + (selected.noInvent ? ' This conflicts with “do not invent”; the simulation follows the gap-filling instruction.' : ' Ask for clarification instead.'));
     penalize('hideGaps', { 'Hallucination Resistance': 20, Clarity: selected.assumptions || selected.coverage ? 15 : 0 }, 'A definitive answer without caveats hides uncertainty. Assumption labels and open questions are suppressed, including when also requested.');
     penalize('brief', { 'Output Control': 20, Clarity: selected.structured || selected.trace ? 15 : 0 }, 'A single sentence without tables or references prevents a reviewable test design. In this simulation it overrides table and source-reference requests.');
@@ -67,7 +67,7 @@
     if (selected.legacy) {
       const expiry = rows.findIndex(row => row[2] === 'AC-02');
       if (expiry >= 0) rows.splice(expiry, 1);
-      rows.push(['Use an unused link 16 minutes after issue', 'The link is expired and cannot reset the password.', 'Earlier-release note (not current authority)']);
+      rows.push(['Use an unused link 16 minutes after issue', 'The link is expired and cannot reset the password.', 'AC-02 · Release v0 (not current authority)']);
     }
     return { scores, average, quality: average >= 75 ? 'Strong structure' : average >= 40 ? 'Developing' : 'Limited', strengths, missing, issues, neutral, rows, effective: c };
   }
@@ -136,7 +136,7 @@
     if (c.coverage && !selected.brief) {
       response.append(element('h4', 'Coverage summary'), element('p', c.criteria ? 'Covers AC-01–04 with representative conditions, not exhaustive tests. Confirm exact expiry-boundary behaviour and add boundary checks after clarification.' : c.requirement ? 'Covers the basic request flow in REQ-01. No acceptance criteria were supplied, so detailed behaviour remains unverified.' : 'No supplied sources: coverage cannot be established.'));
       response.append(element('h4', 'Open questions'), element('p', 'What happens for an unregistered email? Which password rules and rate limits apply? What is the expected result exactly 30 minutes after issue?'));
-      if (selected.legacy) response.append(element('p', 'Coverage correction: AC-02 is not correctly covered; the earlier-release expiry rule displaced it.'));
+      if (selected.legacy) response.append(element('p', 'Coverage correction: AC-02 is not correctly covered; the release v0 expiry rule displaced the current release v1 version.'));
     }
     $('status').textContent = 'Simulation complete. Results are below.';
     $('results-title').focus();

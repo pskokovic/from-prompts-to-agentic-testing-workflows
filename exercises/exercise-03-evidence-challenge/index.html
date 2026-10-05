@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>E3 · Evidence Challenge</title>
+  <link rel="icon" href="../../shared/favicon.ico" sizes="any"><link rel="stylesheet" href="../../shared/theme.css"><link rel="stylesheet" href="../../shared/styles.css"><link rel="stylesheet" href="../../shared/forms.css"><link rel="stylesheet" href="styles.css">
+  <script defer src="evidence.js"></script><script defer src="app.js"></script>
+<link rel="stylesheet" href="../../shared/navigation.css"></head>
+<body>
+<a class="skip-link" href="#task-title">Skip to exercise</a>
+<header class="topbar page-header"><div class="header-heading"><a class="home-icon" href="../../index.html" aria-label="Home" title="Home"><img src="../../shared/home.svg" alt="" width="24" height="24"></a><span class="page-title">Evidence Challenge</span></div><nav class="exercise-nav" aria-label="Tutorial navigation"><a class="home-link requirements-link" href="../../requirements.html">All requirements</a><a class="home-link glossary-link" href="../../glossary.html">Glossary</a><div class="header-actions"><button id="reset" class="header-reset" type="button">Reset</button><span class="badge">SEETEST 2026 / TUTORIAL<span class="header-page-label">EXERCISE 03</span></span></div></nav></header>
+<main>
+  <section class="intro"><div class="eyebrow">FROM EVIDENCE TO JUDGMENT</div><h1 id="task-title" tabindex="-1">Evidence Challenge</h1><p>AI-assisted testing still needs evidence review. A failed test is an observation. What can you responsibly say about its cause?</p><div class="notice"><span class="dot" aria-hidden="true"></span>Local simulation · No AI service connected · Nothing is sent or saved</div></section>
+  <section class="card task"><div class="eyebrow">PREPARED AI-ASSISTANT CONCLUSION FOR REVIEW</div><blockquote>“The password-reset service is unstable”</blockquote><p>This is a scripted example, not a live AI output. Check whether the supplied evidence supports the claim. Inspect the summary and open raw evidence when needed. Select observed facts, make a provisional judgment, keep two different hypotheses in view, and choose one next action. Commit your first answer before seeing feedback.</p><p class="field-note">Aim to complete your initial decision in six minutes. The extended investigation comes in Exercise 6.</p><a class="home-link" href="worksheet.html">Printable offline worksheet</a></section>
+  <noscript><p class="card">Use the <a href="worksheet.html">script-free worksheet</a> to complete the same activity without JavaScript. Open the <a href="requested-evidence.html">separate request card</a> only after writing your initial answer.</p></noscript>
+  <section class="card evidence" aria-labelledby="evidence-title"><div class="eyebrow">01 / INSPECT</div><h2 id="evidence-title">What is in the record?</h2><p class="field-note">This is a short reading guide, not a diagnosis. Open a source to check its exact content and provenance.</p>
+    <!-- SOURCES START -->
+<div class="summary-grid"><section class="summary-card"><h3>CI-01 · Initial failure</h3><p>Run 204: reset-confirmation was absent at the 1,002 ms snapshot; the assertion failed.</p><p class="metadata">CI runner · Run 204 · app-a42 / test-t17</p></section><section class="summary-card"><h3>CODE-01 · Test snapshot</h3><p>The test submits asynchronously, sleeps for 1,000 ms, then checks immediate existence.</p><p class="metadata">Test repository · test-t17 · Framework-independent pseudocode</p></section><section class="summary-card"><h3>HIST-01 · Five supplied runs</h3><p>Five supplied runs share app/test versions; outcomes align with confirmation timing relative to the snapshot.</p><p class="metadata">CI result export · Same app/test versions and configured environment</p></section></div><h3 class="raw-title">Complete source evidence</h3><p class="field-note">Open any source to verify exact wording, timing, and provenance.</p><details class="source"><summary>CI-01 · Read the complete initial failure</summary><p class="metadata">CI runner · Run 204 · app-a42 / test-t17</p><pre>run=204 application=app-a42 tests=test-t17 test=reset_completion
+environment=isolated-integration fixture=account-204 request=reset-204
+relative time origin: reset submission (same runner monotonic clock)
+t+0000ms submit reset-204
+t+1000ms fixed delay completes
+t+1002ms existsNow(reset-confirmation) -&gt; false
+t+1003ms assertion failed; diagnostics continue until t+3000ms</pre></details>
+<details class="source"><summary>CODE-01 · Read the complete test snapshot</summary><p class="metadata">Test repository · test-t17 · Framework-independent pseudocode</p><pre>01 test reset_completion:
+02   account, token, acceptedNewPassword = isolatedResetFixture()
+03   openResetForm(token)
+04   submitNewPassword(acceptedNewPassword)  // asynchronous request
+05   sleep(1000 milliseconds)
+06   assert existsNow(&quot;reset-confirmation&quot;)
+07   cleanup(account)
+
+08 test proposed_password_policy:
+09   account, token = separateResetFixture()
+10   submitNewPassword(&quot;short-example&quot;, token)
+11   assert result == rejected_because_length_below_12
+12   cleanup(account)</pre><p class="source-note">existsNow is an immediate snapshot with no implicit wait. Diagnostics continue for three seconds after submission even if the assertion fails. The password-policy probe is a separate test, not a later line after the failed assertion.</p></details>
+<details class="source"><summary>HIST-01 · Read the complete five supplied runs</summary><p class="metadata">CI result export · Same app/test versions and configured environment</p><div class="table-wrap" tabindex="0" role="region" aria-label="History for runs 201 to 205"><table><caption>HIST-01 · Time since submission</caption><thead><tr><th scope="col">Run</th><th scope="col">Response completed</th><th scope="col">Confirmation created</th><th scope="col">Snapshot</th><th scope="col">Test outcome</th></tr></thead><tbody><tr><td>201</td><td>620 ms</td><td>660 ms</td><td>1002 ms</td><td>Pass</td></tr><tr><td>202</td><td>1320 ms</td><td>1360 ms</td><td>1002 ms</td><td>Fail</td></tr><tr><td>203</td><td>810 ms</td><td>850 ms</td><td>1002 ms</td><td>Pass</td></tr><tr><td>204</td><td>1420 ms</td><td>1460 ms</td><td>1002 ms</td><td>Fail</td></tr><tr><td>205</td><td>730 ms</td><td>770 ms</td><td>1002 ms</td><td>Pass</td></tr></tbody></table></div><p class="source-note">Each run uses an isolated fixture. This report derives timestamps from captured run events; it is not independent corroboration of those events. The sample is not a production reliability estimate.</p></details><details class="source"><summary>Current functional requirements — reference</summary><pre>- REQ-01: A registered user can request a password-reset link using their email address.
+- AC-01: For a registered email, send a reset link.
+- AC-02 (release v1): The link expires 30 minutes after issue.
+- AC-03: A successfully used link cannot be used again.
+- AC-04: After a successful reset, the new password works and the old password does not.</pre><p class="source-note">The exact 30-minute boundary and password policy remain unspecified. Reset confirmation alone does not establish AC-04 authentication behavior.</p></details>
+<!-- SOURCES END -->
+  </section>
+  <div id="interactive" hidden>
+    <form id="builder" class="card builder" novalidate>
+      <div class="eyebrow">02 / JUDGE</div><h2>Your provisional judgment</h2><p class="field-note">Choose from the supplied record. A selected option is not automatically a proven cause.</p>
+      <fieldset id="observation-options"><legend>Which statements are observed facts?</legend><p class="field-note">Select at least one. Some options are interpretations.</p></fieldset>
+      <div class="pair">
+        <label><span id="decision-label">Claim decision</span><span class="field-note dropdown-description" id="decision-description">Decide whether the supplied evidence supports the claim, leaves it unsupported, or requires further investigation.</span><select id="decision" aria-labelledby="decision-label" aria-describedby="decision-description"></select></label>
+        <label><span id="category-label">Provisional category</span><span class="field-note dropdown-description" id="category-description">Choose the general area you would investigate first. This is a starting point that may change as you learn more.</span><select id="category" aria-labelledby="category-label" aria-describedby="category-description"></select></label>
+      </div>
+      <label id="rejection-field" hidden>What does “reject” mean?<select id="rejection"><option value="">Choose…</option><option value="certainty">The claim is not established</option><option value="healthy">The service is healthy</option></select></label>
+      <div class="pair">
+        <label><span id="hypothesis1-label">Preferred hypothesis</span><span class="field-note dropdown-description" id="hypothesis1-description">Choose the possible explanation you currently consider best supported by the evidence. It still needs checking.</span><select id="hypothesis1" aria-labelledby="hypothesis1-label" aria-describedby="hypothesis1-description"></select></label>
+        <label><span id="hypothesis2-label">Competing hypothesis</span><span class="field-note dropdown-description" id="hypothesis2-description">Choose a different possible explanation to keep open while checking your preferred one.</span><select id="hypothesis2" aria-labelledby="hypothesis2-label" aria-describedby="hypothesis2-description"></select></label>
+      </div>
+      <label id="other-field" hidden>Describe your other hypothesis briefly<textarea id="other" rows="2" maxlength="240"></textarea></label>
+      <label>Next action<select id="action"></select></label>
+      <fieldset><legend>Three brief statements</legend>
+        <label>What does cited evidence show, and what does it not establish?<textarea id="evidenceLimit" rows="2" maxlength="280" placeholder="Use a source ID and name the limit."></textarea></label>
+        <label>What future observation would weaken your preferred hypothesis?<textarea id="weakener" rows="2" maxlength="240" placeholder="Describe something to look for, not a fact already seen."></textarea></label>
+        <label>What uncertainty would your next action resolve?<textarea id="actionResolve" rows="2" maxlength="240" placeholder="Name the decision this evidence would inform."></textarea></label>
+      </fieldset>
+      <label class="choice"><input type="checkbox" id="priorTiming"> I already read TIM-01 in Exercise 2 and am citing it as prior knowledge.</label>
+      <fieldset><legend>03 / COMMIT YOUR INITIAL ANSWER</legend><p class="field-note">TIM-01 may be revealed after commitment. TRACE-01 stays pending for Exercise 6. A patch or rerun is only a proposal; nothing is executed.</p><button id="commit" class="primary" type="button">Commit initial answer &amp; action</button></fieldset>
+      <p id="commit-status" role="status" tabindex="-1"></p>
+      <section id="reveal" class="reveal" hidden aria-labelledby="reveal-title"><h3 id="reveal-title">TIM-01 · Requested timing contract</h3><p id="timing-text"></p></section>
+      <label id="revision-field" hidden>After feedback: what changed, or why does your judgment remain?<textarea id="revision" rows="2" maxlength="300"></textarea></label>
+      <div class="actions"><button id="review" class="primary" type="button" disabled>Review committed answer</button></div>
+    </form>
+  </div>
+  <section id="results" class="card results" hidden aria-labelledby="results-title"><div class="eyebrow">04 / FEEDBACK &amp; REVISION</div><h2 id="results-title" tabindex="-1">What does the evidence support?</h2><p>Authored feedback responds to choices; it does not grade the meaning of your three statements or prove a diagnosis.</p><p id="stale" class="stale" hidden>Your draft changed. Review again to update this feedback.</p><div class="pair"><div><h3>Claims to reconsider</h3><ul id="concerns"></ul></div><div><h3>Review guidance</h3><ul id="guidance"></ul></div></div><h3>Complete your record</h3><ul id="gaps"></ul><button class="text-button" id="revise" type="button">Return to your decision ↑</button><details><summary>Longer rationale and one worked investigation</summary><p>Compare after your own first answer. Multiple justified categories and evidence requests are possible.</p><a class="home-link" href="worked-example.html">Worked example and self-review</a></details><p class="debrief">What is observed? What remains a hypothesis? Which evidence could change your mind?</p></section>
+  <section id="record-panel" class="card" hidden><div class="section-head"><h2>Your decision record</h2><button class="text-button" id="copy" type="button">Copy record</button></div><p class="field-note">Includes your initial judgment, committed action, current draft, and latest reviewed decision.</p><pre id="record" tabindex="0" aria-label="Decision record"></pre><p id="copy-status" role="status"></p></section>
+  <footer><span>Observation → hypothesis → evidence request</span></footer>
+</main>
+</body></html>

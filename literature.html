@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Books, research papers, and official documentation referenced in the SEETEST testing tutorial.">
+  <title>Literature · Testing Lab</title>
+  <link rel="icon" href="shared/favicon.ico" sizes="any">
+  <link rel="stylesheet" href="shared/theme.css">
+  <link rel="stylesheet" href="shared/styles.css">
+  <link rel="stylesheet" href="shared/navigation.css">
+  <link rel="stylesheet" href="literature.css">
+</head>
+<body>
+  <a class="skip-link" href="#literature">Skip to literature</a>
+  <header class="topbar page-header">
+    <div class="header-heading"><a class="home-icon" href="index.html" aria-label="Home" title="Home"><img src="shared/home.svg" alt="" width="24" height="24"></a><span class="page-title">Literature</span></div>
+    <nav class="exercise-nav" aria-label="Tutorial navigation"><a class="home-link requirements-link" href="requirements.html">All requirements</a><a class="home-link glossary-link" href="glossary.html">Glossary</a><span class="badge">SEETEST 2026 / TUTORIAL<span class="header-page-label">LITERATURE</span></span></nav>
+  </header>
+  <main>
+    <section class="intro">
+      <div class="eyebrow">READING / REFERENCE MATERIAL</div>
+      <h1 id="literature">Literature</h1>
+      <p>Explore the 22 references collected from the tutorial glossary, exercise documentation, and presentation. They cover software testing with AI, agent design, tool use, evidence, and responsible execution.</p>
+      <p class="reading-note">Start with Mark Winteringham for testing practice, Anthropic's <em>Building effective agents</em> for workflow patterns, and OpenAI's practical guide for agent design. Documentation describes provider implementations; the tutorial uses these concepts in a tool-agnostic teaching model.</p>
+    </section>
+    <section class="card reference-section" aria-label="Reference list">
+      <ol class="reference-list">
+        <li><h3><a href="https://www.manning.com/books/software-testing-with-generative-ai">Software Testing with Generative AI</a></h3><p class="author">Mark Winteringham · Manning</p><p>Testing practice with generative AI: useful background for prompt building, reviewing outputs, and designing tests.</p></li>
+        <li><h3><a href="https://arxiv.org/abs/2307.07221">Software Testing with Large Language Models: Survey, Landscape, and Vision</a></h3><p class="author">Junjie Wang et al. · arXiv:2307.07221</p><p>A research overview of LLM applications in software testing, including test preparation and program repair.</p></li>
+        <li><h3><a href="https://www.amazon.com/Artificial-Intelligence-Guide-Thinking-Humans-ebook/dp/B07MYWPQSK">Artificial Intelligence: A Guide for Thinking Humans</a></h3><p class="author">Melanie Mitchell</p><p>Broader background on artificial intelligence and its capabilities and limitations.</p></li>
+        <li><h3><a href="https://www.amazon.com/Advanced-Software-Testing-Certification-Manager-ebook/dp/B00VB46KB2">Advanced Software Testing: Guide to the ISTQB Advanced Certification as an Advanced Test Manager</a></h3><p class="author">Rex Black</p><p>Testing foundations and test-management reading included in the presentation.</p></li>
+        <li><h3><a href="https://www.amazon.com/Artificial-Intelligence-Software-Testing-Black/dp/1780175760">Artificial Intelligence and Software Testing: Building systems you can trust</a></h3><p class="author">Rex Black et al., as credited in the presentation</p><p>Background reading on AI and software testing.</p></li>
+        <li><h3><a href="https://www.amazon.com/Agentic-AI-Engineering-Reliable-Multi-Agent-ebook/dp/B0HLBJ3MF1">Agentic AI Engineering</a></h3><p class="author">K. Sahu, as credited in the presentation</p><p>Agentic AI engineering reading included in the presentation.</p></li>
+        <li><h3><a href="https://www.anthropic.com/engineering/building-effective-agents">Building effective agents</a></h3><p class="author">Anthropic</p><p>Workflows versus agents, prompt chaining, routing, parallelization, orchestrator–worker patterns, and feedback loops.</p></li>
+        <li><h3><a href="https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/">A practical guide to building agents</a></h3><p class="author">OpenAI</p><p>Agent design, orchestration, and controls: a practical companion to the loop workshop.</p></li>
+        <li><h3><a href="https://code.claude.com/docs/en/how-claude-code-works">How Claude Code works</a></h3><p class="author">Anthropic / Claude Code documentation</p><p>Context gathering, action, result verification, and the surrounding agent harness.</p></li>
+        <li><h3><a href="https://developers.openai.com/api/docs/guides/agents/orchestration">Orchestration and handoffs</a></h3><p class="author">OpenAI documentation</p><p>Agent ownership, delegation, and the distinction between manager-led work and handoffs.</p></li>
+        <li><h3><a href="https://developers.openai.com/api/docs/guides/agents/guardrails-approvals">Guardrails and human review</a></h3><p class="author">OpenAI documentation</p><p>Automatic checks, approval decisions, and human review in agent workflows.</p></li>
+        <li><h3><a href="https://developers.openai.com/api/docs/guides/function-calling">Function calling</a></h3><p class="author">OpenAI documentation</p><p>The distinction between a model requesting an action, the application executing it, and returning its result.</p></li>
+        <li><h3><a href="https://learn.chatgpt.com/docs/agent-approvals-security">Agent approvals &amp; security</a></h3><p class="author">OpenAI / Codex</p><p>Sandbox boundaries and approval policy: useful context for separating instructions from enforced permissions.</p></li>
+        <li><h3><a href="https://arxiv.org/abs/2312.10622">Unit Test Generation using Generative AI: A Comparative Performance Analysis of Autogeneration Tools</a></h3><p class="author">Shreya Bhatia et al. · arXiv:2312.10622</p><p>Evaluation of generated unit tests, including coverage, correctness, readability, and incorrect assertions.</p></li>
+        <li><h3><a href="https://arxiv.org/abs/2401.16186">An Empirical Study on Usage and Perceptions of LLMs in a Software Engineering Project</a></h3><p class="author">S. Rasnayaka et al. · arXiv:2401.16186</p><p>Empirical reading on the use of LLMs in software engineering.</p></li>
+        <li><h3><a href="https://arxiv.org/abs/2503.00481">Challenges in Testing Large Language Model Based Software: A Faceted Taxonomy</a></h3><p class="author">Fredrik Dobslaw · arXiv:2503.00481</p><p>A taxonomy of challenges in testing LLM-based software.</p></li>
+        <li><h3><a href="https://ntrs.nasa.gov/citations/20250001849">Examining Proposed Uses of LLMs to Produce or Assess Assurance Arguments</a></h3><p class="author">M. S. Graydon and S. M. Lehman · NASA</p><p>Assurance-focused reading relevant to reviewing the relationship between claims and evidence.</p></li>
+        <li><h3><a href="https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf">Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile</a></h3><p class="author">NIST · NIST AI 600-1</p><p>Generative AI risks, including confabulation and the risk of acting on convincing but erroneous output.</p></li>
+        <li><h3><a href="https://fepbl.com/index.php/csitrj/article/view/1450">Enhancing software development practices with AI insights in high-tech companies</a></h3><p class="author">D. Ajiga et al., as credited in the presentation</p><p>Additional software-development reading from the presentation's literature list.</p></li>
+        <li><h3><a href="https://wjaets.com/sites/default/files/WJAETS-2024-0486.pdf">Integrating AI in testing automation: Enhancing test coverage and predictive analysis for improved software quality</a></h3><p class="author">P. Nama, as credited in the presentation</p><p>Additional testing-automation reading from the presentation's literature list.</p></li>
+        <li><h3><a href="https://www.gov.uk/government/publications/research-on-the-cyber-security-of-ai/ai-cyber-security-survey-main-report">AI cyber security survey — main report</a></h3><p class="author">UK Government / Department for Science, Innovation &amp; Technology</p><p>Government research on AI cyber security.</p></li>
+        <li><h3><a href="https://testfort.com/blog/ai-in-software-testing-a-silver-bullet-or-a-threat-to-the-profession">AI in Software Testing</a></h3><p class="author">TestFort · industry article</p><p>Practitioner commentary included in the presentation's further reading.</p></li>
+      </ol>
+    </section>
+    <aside class="source-note card" aria-labelledby="source-note-title">
+      <h2 id="source-note-title">About these links</h2>
+      <p>External links require internet access; some books require purchase. Provider documentation can change over time. The Amazon entries and the Ajiga/Nama links were retained from the presentation, but their destination details could not be independently verified during collection.</p>
+      <p>Use research findings within their stated study conditions. A reference supports learning and review; it does not establish that an exercise scenario, generated test, or proposed change has been validated.</p>
+    </aside>
+    <footer>From Prompts to Agentic Testing Workflows <span>Literature / learning reference</span></footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,14 @@
+.glossary-contents{display:flex;flex-wrap:wrap;gap:12px 24px;margin:0 0 36px;padding:18px 22px;border:1px solid var(--border);border-radius:12px;background:white}
+.glossary-contents a{color:var(--teal);font-weight:600;text-underline-offset:3px}
+.glossary-section{margin-bottom:40px;scroll-margin-top:24px}
+.term-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.term-card{background:white;border:1px solid var(--border);border-radius:14px;padding:24px;overflow-wrap:anywhere}
+.term-card h3{font-size:20px;color:var(--teal);scroll-margin-top:24px}
+.term-card p:last-child{margin-bottom:0}
+.term-example{color:var(--muted);font-size:14px}
+.term-example strong{display:block;color:var(--text);margin-bottom:4px}
+.term-card details{border-top:1px solid var(--border);padding-top:12px;margin-top:16px;font-size:14px;color:var(--muted)}
+.term-card summary{cursor:pointer;color:var(--teal);font-weight:600;min-height:32px}
+.term-card details p{margin-top:8px}
+@media(max-width:720px){.term-grid{grid-template-columns:1fr}.term-card{padding:20px}}
+@media print{.glossary-contents{display:none}.term-grid{display:block}.term-card{break-inside:avoid;margin-bottom:12px}.term-card details{display:none}}

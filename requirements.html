@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Requirements, acceptance criteria, integration contract, fixture rules, and open questions for the Testing Lab scenario.">
+  <title>All requirements · Testing Lab</title>
+  <link rel="icon" href="shared/favicon.ico" sizes="any">
+  <link rel="stylesheet" href="shared/theme.css">
+  <link rel="stylesheet" href="shared/styles.css">
+  <link rel="stylesheet" href="requirements.css">
+<link rel="stylesheet" href="shared/navigation.css"></head>
+<body>
+  <a class="skip-link" href="#requirements">Skip to requirements</a>
+  <header class="topbar page-header"><div class="header-heading"><a class="home-icon" href="index.html" aria-label="Home" title="Home"><img src="shared/home.svg" alt="" width="24" height="24"></a><span class="page-title">All requirements</span></div><nav class="exercise-nav" aria-label="Tutorial navigation"><a class="home-link requirements-link" href="requirements.html" aria-current="page">All requirements</a><a class="home-link glossary-link" href="glossary.html">Glossary</a><div class="header-actions"><span class="badge">SEETEST 2026 / TUTORIAL<span class="header-page-label">ALL REQUIREMENTS</span></span></div></nav></header>
+  <main>
+    <section class="intro">
+      <div class="eyebrow">SHARED SCENARIO REFERENCE</div>
+      <h1 id="requirements">All requirements</h1>
+      <p>The customer account portal supports password reset. This page collects the current requirements and supporting rules used across the tutorial, alongside historical material, an unapproved suggestion, and questions that remain open.</p>
+      <p>Fictional teaching scenario · Baseline v1.0 · 19 September 2026. These statements describe the exercise scenario; they are not verified results from a real service.</p>
+      <div class="notice"><span class="dot" aria-hidden="true"></span>Local simulation · No AI service connected · Nothing is sent or saved</div>
+    </section>
+    <nav class="contents" aria-label="Requirements sections"><a href="#current">Current requirements</a><a href="#integration">Integration contract</a><a href="#fixtures">Fixture rules</a><a href="#expiry-versions">AC-02 versions</a><a href="#other">Other source statements</a><a href="#questions">Open questions</a></nav>
+    <section class="reference-section" id="current" aria-labelledby="current-title">
+      <div class="eyebrow">PRODUCT OWNER / CURRENT FUNCTIONAL BASELINE</div><h2 id="current-title">Password-reset requirements and acceptance criteria</h2>
+      <dl class="requirements-list">
+        <div id="REQ-01"><dt>REQ-01</dt><dd>A registered user can request a password-reset link using their email address.</dd></div>
+        <div id="AC-01"><dt>AC-01</dt><dd>For a registered email, send a reset link.</dd></div>
+        <div id="AC-02"><dt>AC-02<br><small>Release v1</small></dt><dd>The link expires 30 minutes after issue.</dd></div>
+        <div id="AC-03"><dt>AC-03</dt><dd>A successfully used link cannot be used again.</dd></div>
+        <div id="AC-04"><dt>AC-04</dt><dd>After a successful reset, the new password works and the old password does not.</dd></div>
+      </dl>
+    </section>
+    <section class="reference-section" id="expiry-versions" aria-labelledby="expiry-versions-title">
+      <h2 id="expiry-versions-title">AC-02: two versions of the same criterion</h2>
+      <p>Both statements use AC-02. Check the release and baseline before using either as a test oracle. Release v1 is the current functional baseline for this tutorial.</p>
+      <dl class="requirements-list">
+        <div id="AC-02-v0"><dt>AC-02<br><small>Release v0</small></dt><dd>Reset links expire after 15 minutes.<br><span class="scope-note">Product owner / release archive · Superseded</span></dd></div>
+        <div id="AC-02-v1"><dt>AC-02<br><small>Release v1</small></dt><dd>The link expires 30 minutes after issue.<br><span class="scope-note">Product owner · Current functional baseline</span></dd></div>
+      </dl>
+      <p>The exact behaviour at precisely 30 minutes remains unspecified. A version label resolves the conflicting durations; it does not fill this gap.</p>
+    </section>
+    <section class="reference-section" id="integration" aria-labelledby="integration-title">
+      <div class="eyebrow">PRODUCT AND TEST OWNERS / CURRENT INTEGRATION CONTRACT</div><h2 id="integration-title">Reset completion timing</h2>
+      <h3 id="TIM-01">TIM-01</h3>
+      <p>For a valid, unused, unexpired token and an accepted password fixture in the isolated integration environment, reset submission must complete successfully and show a success confirmation within 3,000 ms of submission. The confirmation is created only after a successful reset response. A response/confirmation earlier or later than one second can satisfy this contract. A response error or confirmation after 3,000 ms requires investigation; it must not be normalized away by extending the timeout. This contract does not assert whole-service health, production performance, or email delivery time.</p>
+      <p class="scope-note">The 30-minute link expiry and the 3,000 ms reset-completion deadline apply to different events. TIM-01 supports the later integration and automation activities; it adds no password policy.</p>
+    </section>
+    <section class="reference-section" id="fixtures" aria-labelledby="fixtures-title">
+      <div class="eyebrow">TEST OWNER / CURRENT FIXTURE DESCRIPTION</div><h2 id="fixtures-title">Integration test setup</h2>
+      <h3 id="DATA-01">DATA-01</h3>
+      <p>Each run creates a distinct registered account, old/new accepted-password fixtures, and a fresh unused token. Submission occurs 60 seconds after token issue. No other test uses this account or token. The negative-policy probe uses a separate fresh fixture. Authentication checks use fresh unauthenticated sessions; cleanup follows each run. Fixture acceptance is test setup evidence, not a general password-policy specification.</p>
+    </section>
+    <section class="reference-section" id="other" aria-labelledby="other-title">
+      <h2 id="other-title">Other source statements</h2>
+      <article class="source-statement" id="NOISE-01"><div class="eyebrow">CURRENT / UNRELATED TO PASSWORD RESET</div><h3>NOISE-01 · CSV export</h3><blockquote>CSV export should retain the selected column order.</blockquote><p>This requirement belongs to another feature. Its current status does not make it relevant to password-reset testing.</p></article>
+      <article class="source-statement" id="OLD-01"><div class="eyebrow">ARCHIVED RELEASE V0 / SUPERSEDED</div><h3>AC-02 · Release v0</h3><blockquote>Reset links expire after 15 minutes.</blockquote><p>This is the release v0 version of AC-02. Release v1 supersedes it and sets expiry at 30 minutes. The requirement ID stays the same; the applicable version determines the expected result.</p></article>
+      <article class="source-statement" id="SUGGEST-01"><div class="eyebrow">UNREVIEWED AI SUGGESTION / UNAPPROVED</div><h3>SUGGEST-01 · Proposed password rule</h3><blockquote>Reject passwords shorter than 12 characters.</blockquote><p>No supplied requirement supports this suggestion. Keep it as a clarification question; it does not define an expected result.</p></article>
+    </section>
+    <section class="reference-section" id="questions" aria-labelledby="questions-title">
+      <h2 id="questions-title">Unspecified behaviour and open questions</h2><p>The baseline leaves these matters unresolved. Record questions rather than inventing expected results.</p>
+      <ul><li>Behaviour for an unregistered email address.</li><li>Password composition and length rules.</li><li>Rate limits.</li><li>Exact behaviour at precisely 30 minutes after link issue.</li><li>Multiple outstanding reset links.</li><li>Session invalidation after reset.</li><li>Email delivery-time guarantees.</li></ul>
+      <p>For expiry examples, use times clearly before or after the deadline. Keep assertions at the exact boundary pending clarification.</p>
+    </section>
+    <section class="reference-section" aria-labelledby="use-title"><h2 id="use-title">Using this reference</h2><p>Use source IDs to connect expected results to the applicable requirement or contract. Code, logs, risk proposals, and investigation results remain in their exercise materials; they do not add or override product requirements.</p><p>Your exercise states which sources are supplied for that activity. If you consult this reference before a source is introduced, record that prior knowledge when reviewing your decision.</p></section>
+    <footer><span>From Prompts to Agentic Testing Workflows</span></footer>
+  </main>
+</body>
+</html>

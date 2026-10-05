@@ -68,3 +68,7 @@ All asset paths are relative, so repository subpaths work. No environment variab
 ## Extend
 
 Edit the source constants, `buildPrompt` and `evaluate` in `app.js` to change the scenario or scoring. Keep source material in `index.html` in sync. Extend response rendering for additional behaviors. Participant text is inserted using `textContent`, never interpreted as HTML.
+
+## Expiry requirement versions
+
+Participant materials show AC-02 in two releases: v0 specifies 15 minutes and v1 specifies 30 minutes. Release v1 is the current functional baseline. The historical source retains `OLD-01` as an internal key for decision logic and archived-source parity, but cards, reasons, feedback, exports, and worksheets use the visible label `AC-02 · Release v0`. Source wording and the exact-boundary gap remain unchanged.

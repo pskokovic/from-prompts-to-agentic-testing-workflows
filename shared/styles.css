@@ -44,3 +44,9 @@ footer span{display:none}
 .exercise-button{align-items:center;gap:16px;min-height:48px;text-decoration:none;font-family:inherit;line-height:1.55}
 .exercise-button:disabled{background:#e5ebee;color:var(--muted);cursor:not-allowed}
 @media(max-width:480px){.exercise-nav{gap:10px}.exercise-nav .badge{font-size:8px;letter-spacing:.5px;padding:7px 8px}.topbar{gap:12px}}
+
+/* Keep shared reference navigation readable on narrow screens. */
+.topbar{height:auto;min-height:76px;padding-top:14px;padding-bottom:14px;flex-wrap:wrap;gap:12px}
+.exercise-nav{flex-wrap:wrap;gap:8px 20px}
+.requirements-reference{margin-bottom:20px}
+@media print{.requirements-reference{display:none}}
